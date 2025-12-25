@@ -321,7 +321,7 @@ async def optimize_resources(request: OptimizeRequest):
     """
     
     # Call Gemini via REST API
-    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
     
     try:
         async with httpx.AsyncClient() as client:
@@ -396,7 +396,7 @@ async def chat_with_ai(request: ChatRequest):
             "parts": [{"text": text}]
         })
 
-    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
     
     try:
         async with httpx.AsyncClient() as client:
