@@ -11,9 +11,12 @@ const EcoChatAssistant = ({ resources, carbonRating }) => {
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const messagesEndRef = useRef(null);
+    const chatContainerRef = useRef(null);
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
     };
 
     useEffect(() => {
@@ -50,7 +53,10 @@ const EcoChatAssistant = ({ resources, carbonRating }) => {
                 <h3 style={{ margin: 0, fontSize: '1rem' }}>ECOCODE ASSISTANT</h3>
             </div>
 
-            <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div
+                ref={chatContainerRef}
+                style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}
+            >
                 {messages.map((msg, idx) => (
                     <motion.div
                         key={idx}

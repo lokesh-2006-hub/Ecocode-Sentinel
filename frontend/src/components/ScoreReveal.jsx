@@ -54,6 +54,57 @@ const ScoreReveal = ({ data }) => {
                 </div>
             </div>
 
+            {/* Emission Breakdown Section */}
+            <div style={{ marginTop: '2rem', padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <h3 style={{ margin: '0 0 1rem 0', fontSize: '0.8rem', color: 'var(--text-secondary)', letterSpacing: '1px' }}>EMISSION BREAKDOWN</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+
+                    {/* Frontend */}
+                    <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '0.4rem' }}>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-green)' }} />
+                                Frontend (Data Transfer)
+                            </span>
+                            <span style={{ fontWeight: 'bold' }}>{data.frontend_carbon_g?.toFixed(3) || carbon_g.toFixed(3)}g</span>
+                        </div>
+                        <div style={{ height: '6px', background: 'rgba(255,255,255,0.1)', borderRadius: '3px', overflow: 'hidden' }}>
+                            <motion.div
+                                initial={{ width: 0 }}
+                                animate={{ width: `${((data.frontend_carbon_g || carbon_g) / carbon_g) * 100}%` }}
+                                transition={{ duration: 1, delay: 0.5 }}
+                                style={{ height: '100%', background: 'var(--accent-green)' }}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Backend */}
+                    <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '0.4rem' }}>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#00b8ff' }} />
+                                Backend (Server Compute)
+                            </span>
+                            <span style={{ fontWeight: 'bold' }}>{data.backend_carbon_g?.toFixed(3) || '0.000'}g</span>
+                        </div>
+                        <div style={{ height: '6px', background: 'rgba(255,255,255,0.1)', borderRadius: '3px', overflow: 'hidden' }}>
+                            <motion.div
+                                initial={{ width: 0 }}
+                                animate={{ width: `${((data.backend_carbon_g || 0) / carbon_g) * 100}%` }}
+                                transition={{ duration: 1, delay: 0.7 }}
+                                style={{ height: '100%', background: '#00b8ff' }}
+                            />
+                        </div>
+                    </div>
+
+                    {details?.processing_time && (
+                        <div style={{ fontSize: '0.75rem', opacity: 0.5, textAlign: 'right', marginTop: '0.2rem' }}>
+                            Server compute time: {details.processing_time}s
+                        </div>
+                    )}
+                </div>
+            </div>
+
             {/* Performance Metrics Section */}
             {data.performance && (
                 <div style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>

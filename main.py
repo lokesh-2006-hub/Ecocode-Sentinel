@@ -7,6 +7,7 @@ from urllib.parse import urljoin, urlparse
 from typing import List, Optional
 import os
 import json
+import time
 import database  # Import our new database module
 
 app = FastAPI()
@@ -43,7 +44,10 @@ class HostingInfo(BaseModel):
 
 class CarbonResult(BaseModel):
     total_bytes: int
-    carbon_g: float
+    carbon_g: float  # Legacy/Total
+    frontend_carbon_g: float
+    backend_carbon_g: float
+    total_carbon_g: float
     green_rating: str
     details: dict
     resources: List[ResourceInfo]
@@ -173,11 +177,13 @@ async def calculate_footprint(request: UrlRequest):
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
             "Accept-Language": "en-US,en;q=0.9",
         }
-        
         async with httpx.AsyncClient(headers=headers, follow_redirects=True) as client:
-            # 1. Fetch the main page
             try:
+                # 1. Fetch the main page and measure response time
+                start_time = time.perf_counter()
                 page_response = await client.get(url, timeout=15.0)
+                end_time = time.perf_counter()
+                processing_time = end_time - start_time
                 page_response.raise_for_status()
             except httpx.HTTPStatusError as e:
                 if e.response.status_code == 403:
@@ -231,20 +237,28 @@ async def calculate_footprint(request: UrlRequest):
 
             total_size += sum(sizes)
             
-            carbon = calculate_carbon(total_size)
-            rating = get_rating(carbon)
-            
             # Fetch PageSpeed and Hosting metrics in parallel
             performance_data, hosting_data = await asyncio.gather(
                 fetch_pagespeed_metrics(url),
                 check_hosting(url)
             )
             
+            # Carbon Calculations
+            frontend_carbon = calculate_carbon(total_size)
+            
+            # Backend Carbon Logic: Multiply by hosting efficiency
+            # Heuristic: 0.02g/sec for standard, 0.005g/sec for confirmed green
+            multiplier = 0.005 if (hosting_data and hosting_data.is_green) else 0.02
+            backend_carbon = processing_time * multiplier
+            
+            total_carbon = frontend_carbon + backend_carbon
+            rating = get_rating(total_carbon)
+            
             # Save scan to database for historical tracking
             performance_score = performance_data.performance_score if performance_data else None
             database.save_scan(
                 url=url,
-                carbon_g=round(carbon, 4),
+                carbon_g=round(total_carbon, 4),
                 total_bytes=total_size,
                 green_rating=rating,
                 performance_score=performance_score,
@@ -253,12 +267,16 @@ async def calculate_footprint(request: UrlRequest):
             
             return CarbonResult(
                 total_bytes=total_size,
-                carbon_g=round(carbon, 4),
+                carbon_g=round(total_carbon, 4),
+                frontend_carbon_g=round(frontend_carbon, 4),
+                backend_carbon_g=round(backend_carbon, 4),
+                total_carbon_g=round(total_carbon, 4),
                 green_rating=rating,
                 details={
                     "html_bytes": len(html_content),
                     "resource_count": len(resource_data),
-                    "resources_bytes": sum(sizes)
+                    "resources_bytes": sum(sizes),
+                    "processing_time": round(processing_time, 3)
                 },
                 resources=resource_details,
                 performance=performance_data,
