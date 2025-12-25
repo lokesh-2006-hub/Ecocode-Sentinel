@@ -88,7 +88,7 @@ def get_rating(carbon_g: float) -> str:
 
 async def fetch_pagespeed_metrics(url: str) -> PerformanceMetrics:
     """Fetch performance metrics from Google PageSpeed Insights API"""
-    api_key = "AIzaSyDLOh3EIPjYig072vPja8K6YpKUu_y7gkk"
+    api_key = os.environ.get("PAGESPEED_API_KEY", "AIzaSyDLOh3EIPjYig072vPja8K6YpKUu_y7gkk")
     pagespeed_url = f"https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url={url}&key={api_key}&category=performance"
     
     try:
@@ -321,7 +321,7 @@ async def optimize_resources(request: OptimizeRequest):
     """
     
     # Call Gemini via REST API
-    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={api_key}"
+    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
     
     try:
         async with httpx.AsyncClient() as client:
@@ -396,7 +396,7 @@ async def chat_with_ai(request: ChatRequest):
             "parts": [{"text": text}]
         })
 
-    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={api_key}"
+    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
     
     try:
         async with httpx.AsyncClient() as client:
