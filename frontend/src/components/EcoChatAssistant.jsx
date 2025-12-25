@@ -62,14 +62,17 @@ const EcoChatAssistant = ({ resources, carbonRating }) => {
                             background: msg.role === 'user' ? 'rgba(0, 255, 157, 0.1)' : 'rgba(255, 255, 255, 0.05)',
                             padding: '12px',
                             borderRadius: '12px',
-                            border: msg.role === 'user' ? '1px solid rgba(0,255,157,0.3)' : '1px solid var(--glass-border)'
+                            border: msg.role === 'user' ? '1px solid rgba(0,255,157,0.3)' : '1px solid var(--glass-border)',
+                            overflowWrap: 'break-word',
+                            wordBreak: 'break-word',
+                            overflow: 'hidden'
                         }}
                     >
                         <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.2rem', fontSize: '0.8rem', opacity: 0.7 }}>
                             {msg.role === 'user' ? <User size={12} /> : <Bot size={12} />}
                             <span>{msg.role === 'user' ? 'YOU' : 'SENTINEL'}</span>
                         </div>
-                        <div style={{ fontSize: '0.9rem', lineHeight: '1.4' }}>
+                        <div style={{ fontSize: '0.9rem', lineHeight: '1.4', maxWidth: '100%', overflowX: 'auto' }}>
                             <ReactMarkdown>{msg.content}</ReactMarkdown>
                         </div>
                     </motion.div>
