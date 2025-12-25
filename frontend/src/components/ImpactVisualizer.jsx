@@ -10,7 +10,8 @@ const ImpactVisualizer = ({ score }) => {
     const [tier, setTier] = useState(1);
 
     useEffect(() => {
-        if (["C", "C+"].includes(score)) setTier(2);
+        const s = (score || "").toUpperCase().trim();
+        if (["C", "C+"].includes(s)) setTier(2);
         else if (["D", "D+"].includes(score)) setTier(3);
         else if (["E", "F"].includes(score)) setTier(4);
         else setTier(1);
@@ -28,7 +29,7 @@ const ImpactVisualizer = ({ score }) => {
 
     // 3. SCENERY COMPONENTS
     const Mountain = ({ d, fill, highlight, x, y, scale = 1, delay = 0 }) => (
-        <g style={{ transform: `translate(${x}px, ${y}px) scale(${scale})` }}>
+        <g transform={`translate(${x}, ${y}) scale(${scale})`}>
             <motion.path
                 d={d}
                 fill={fill}
@@ -105,11 +106,7 @@ const ImpactVisualizer = ({ score }) => {
     const River = () => {
         return (
             <g>
-                <defs>
-                    <pattern id="waterFlow" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-                        <path d="M0 50 Q25 40 50 50 T100 50" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="3" />
-                    </pattern>
-                </defs>
+                {/* Definitions moved to main SVG */}
 
                 {/* River Base - Narrower perspective */}
                 <motion.path
@@ -203,6 +200,11 @@ const ImpactVisualizer = ({ score }) => {
             }}
         >
             <svg viewBox="0 0 800 450" style={{ position: 'absolute', width: '100%', height: '100%' }}>
+                <defs>
+                    <pattern id="waterFlow" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                        <path d="M0 50 Q25 40 50 50 T100 50" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="3" />
+                    </pattern>
+                </defs>
 
                 {/* Sun */}
                 <motion.circle
