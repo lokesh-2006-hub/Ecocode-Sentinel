@@ -32,7 +32,7 @@ function App() {
   };
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
+    <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '2rem', width: '100%', boxSizing: 'border-box' }}>
       <header style={{ textAlign: 'center', marginBottom: '3rem' }}>
         <img src={logo} alt="EcoCode Logo" style={{ width: '120px', height: '120px', marginBottom: '1rem', filter: 'drop-shadow(0 0 20px var(--accent-green))' }} />
         <h1 className="glow-text" style={{ fontSize: '3rem', margin: 0 }}>ECOCODE SENTINEL</h1>
@@ -66,7 +66,7 @@ function App() {
       )}
 
       {result && (
-        <div style={{ marginTop: '2.5rem', maxWidth: '1200px', margin: '2.5rem auto' }}>
+        <div style={{ marginTop: '2.5rem', width: '100%' }}>
           <ResourceAnalysis resources={result.resources} />
         </div>
       )}
