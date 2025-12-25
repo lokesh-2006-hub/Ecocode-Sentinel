@@ -6,7 +6,9 @@
 
 **EcoCode Sentinel** is an advanced platform designed to analyze, visualize, and optimize the carbon footprint of websites. Using real-time scanning and AI-driven insights, it helps developers build a faster, greener, and more sustainable web.
 
-![EcoCode Sentinel Banner](https://raw.githubusercontent.com/lokesh-2006-hub/Ecocode-Sentinel/main/frontend/src/assets/logo.png) *(Note: Placeholder for your logo)*
+<p align="center">
+  <img src="frontend/src/assets/logo.png" width="200" alt="EcoCode Sentinel Logo">
+</p>
 
 ---
 

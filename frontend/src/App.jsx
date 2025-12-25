@@ -8,6 +8,7 @@ import HistoryPanel from './components/HistoryPanel';
 import TrendsChart from './components/TrendsChart';
 import ResourceAnalysis from './components/ResourceAnalysis';
 import axios from 'axios';
+import logo from './assets/logo.png';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -33,6 +34,7 @@ function App() {
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
       <header style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        <img src={logo} alt="EcoCode Logo" style={{ width: '120px', height: '120px', marginBottom: '1rem', filter: 'drop-shadow(0 0 20px var(--accent-green))' }} />
         <h1 className="glow-text" style={{ fontSize: '3rem', margin: 0 }}>ECOCODE SENTINEL</h1>
         <p style={{ color: 'var(--text-secondary)' }}>AI-Powered Sustainable Web Optimization</p>
       </header>
