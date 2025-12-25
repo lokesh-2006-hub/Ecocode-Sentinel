@@ -44,9 +44,19 @@ function App() {
       {error && <div className="glass-panel" style={{ color: 'var(--danger-red)', marginTop: '2rem', textAlign: 'center' }}>{error}</div>}
 
       {result && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginTop: '3rem', alignItems: 'start' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
+          gap: '2.5rem',
+          marginTop: '3rem',
+          alignItems: 'start',
+          justifyItems: 'center',
+          width: '100%',
+          maxWidth: '1200px',
+          margin: '3rem auto 0 auto'
+        }}>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
             <ScoreReveal data={result} />
             <HistoryPanel url={result.url} />
             <TrendsChart url={result.url} />
@@ -61,7 +71,7 @@ function App() {
       )}
 
       {result && (
-        <div style={{ marginTop: '2rem' }}>
+        <div style={{ marginTop: '2.5rem', maxWidth: '1200px', margin: '2.5rem auto' }}>
           <ResourceAnalysis resources={result.resources} />
         </div>
       )}

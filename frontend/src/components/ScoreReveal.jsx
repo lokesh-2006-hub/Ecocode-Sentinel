@@ -23,13 +23,13 @@ const ScoreReveal = ({ data }) => {
                 <span style={{ fontSize: '0.9rem', opacity: 0.7 }}>{total_bytes} bytes</span>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2rem' }}>
                 <motion.div
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ type: 'spring', duration: 1.5 }}
                     style={{
-                        fontSize: '6rem',
+                        fontSize: '6.5rem',
                         fontWeight: '800',
                         color: color,
                         textShadow: `0 0 30px ${color}80` // Glow effect
@@ -38,16 +38,16 @@ const ScoreReveal = ({ data }) => {
                     {green_rating}
                 </motion.div>
 
-                <div>
+                <div style={{ textAlign: 'left' }}>
                     <div style={{ marginBottom: '1rem' }}>
-                        <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>{carbon_g.toFixed(3)}g</div>
+                        <div style={{ fontSize: '2.2rem', fontWeight: 'bold' }}>{carbon_g.toFixed(3)}g</div>
                         <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>CO2 per view</div>
                     </div>
                     <div style={{ display: 'flex', gap: '1rem', fontSize: '0.8rem' }}>
-                        <span style={{ padding: '4px 8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px' }}>
+                        <span style={{ padding: '4px 10px', background: 'rgba(255,255,255,0.1)', borderRadius: '6px' }}>
                             {details.resource_count} Resources
                         </span>
-                        <span style={{ padding: '4px 8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px' }}>
+                        <span style={{ padding: '4px 10px', background: 'rgba(255,255,255,0.1)', borderRadius: '6px' }}>
                             {details.resource_count} Requests
                         </span>
                     </div>
