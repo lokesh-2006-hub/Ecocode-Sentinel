@@ -19,12 +19,12 @@ const ImpactVisualizer = ({ score }) => {
 
     // 2. DEFINE COLORS
     const colors = {
-        sky: { 1: "#87CEEB", 2: "#FCE6C9", 3: "#E67E22", 4: "#800000" }, // T3: Smog Orange, T4: Deep Red (Visible)
+        sky: { 1: "#87CEEB", 2: "#A5D6E3", 3: "#E67E22", 4: "#500000" }, // Brightened T2 sky
         mountain: { 1: "#5D737E", 2: "#778899", 3: "#8D6E63", 4: "#3e2723" },
-        mountainHighlight: { 1: "#A9D6E5", 2: "#B0C4DE", 3: "#D7CCC8", 4: "#5D4037" }, // T4: visible highlight
-        ground: { 1: "#2E8B57", 2: "#8FBC8F", 3: "#D2691E", 4: "#5D4037" }, // T4: Lighter scorched earth
-        tree: { 1: "#006400", 2: "#DAA520", 3: "#8B4513", 4: "#000000" }, // T4: Black silhouette against lighter ground
-        river: { 1: "#4169E1", 2: "#6495ED", 3: "#78909C", 4: "#3E2723" } // T3: Polluted Grey, T4: Dry Mud
+        mountainHighlight: { 1: "#A9D6E5", 2: "#B0C4DE", 3: "#D7CCC8", 4: "#5D4037" },
+        ground: { 1: "#2E8B57", 2: "#689F38", 3: "#D2691E", 4: "#5D4037" }, // Better T2 ground
+        tree: { 1: "#006400", 2: "#827717", 3: "#8B4513", 4: "#000000" },
+        river: { 1: "#4169E1", 2: "#5482D0", 3: "#78909C", 4: "#3E2723" }
     };
 
     // 3. SCENERY COMPONENTS
@@ -33,36 +33,36 @@ const ImpactVisualizer = ({ score }) => {
             <motion.path
                 d={d}
                 fill={fill}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0, fill: fill }}
-                transition={{ duration: 2, delay: delay, fill: { duration: 2 } }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, fill: fill }}
+                transition={{ duration: 1.5, delay: delay }}
             />
-            {/* Snow cap / Highlight */}
             <motion.path
                 d={d}
-                clipPath="inset(0 0 70% 0)" // Only show top 30%
+                clipPath="inset(0 0 70% 0)"
                 fill={highlight}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, fill: highlight }}
-                transition={{ duration: 2, delay: delay + 0.5 }}
+                transition={{ duration: 1.5, delay: delay + 0.3 }}
             />
         </g>
     );
 
     const Deer = ({ x, delay }) => {
-        if (tier >= 3) return null; // Animals leave in critical state
+        if (tier >= 3) return null;
         return (
             <motion.g
-                initial={{ x: x + 50, opacity: 0 }}
+                initial={{ x: x + 100, opacity: 0 }}
                 animate={{ x: x, opacity: 1 }}
-                transition={{ duration: 2, delay: delay }}
+                transition={{ duration: 2.5, delay: delay }}
+                transform="scale(1.3)" // 30% Larger
             >
                 {/* Body */}
-                <path d={`M${x} 380 Q${x + 10} 385 ${x + 20} 380 L${x + 25} 395 L${x + 20} 395 L${x + 18} 385 L${x + 10} 385 L${x + 5} 395 L${x} 395 Z`} fill="#5D4037" />
+                <path d={`M${x / 1.3} 380 Q${x / 1.3 + 10} 385 ${x / 1.3 + 20} 380 L${x / 1.3 + 25} 395 L${x / 1.3 + 20} 395 L${x / 1.3 + 18} 385 L${x / 1.3 + 10} 385 L${x / 1.3 + 5} 395 L${x / 1.3} 395 Z`} fill="#5D4037" />
                 {/* Antlers */}
-                {tier === 1 && <path d={`M${x - 5} 368 L${x - 10} 360 M${x - 5} 368 L${x} 360`} stroke="#5D4037" strokeWidth="1.5" fill="none" />}
+                {tier === 1 && <path d={`M${x / 1.3 - 5} 368 L${x / 1.3 - 10} 360 M${x / 1.3 - 5} 368 L${x / 1.3} 360`} stroke="#5D4037" strokeWidth="1.5" fill="none" />}
                 {/* Neck & Head */}
-                <path d={`M${x} 380 L${x - 5} 370 L${x - 15} 375 L${x - 5} 385 Z`} fill="#5D4037" />
+                <path d={`M${x / 1.3} 380 L${x / 1.3 - 5} 370 L${x / 1.3 - 15} 375 L${x / 1.3 - 5} 385 Z`} fill="#5D4037" />
             </motion.g>
         );
     };
@@ -71,15 +71,16 @@ const ImpactVisualizer = ({ score }) => {
         if (tier >= 3) return null;
         return (
             <motion.g
-                initial={{ x: x - 50, opacity: 0 }}
+                initial={{ x: x - 100, opacity: 0 }}
                 animate={{ x: x, opacity: 1 }}
                 transition={{ duration: 4, delay: delay }}
+                transform="scale(1.2)" // 20% Larger
             >
                 {/* Massive Body */}
-                <path d={`M${x} 380 Q${x + 20} 370 ${x + 40} 385 L${x + 40} 400 L${x + 30} 400 L${x + 30} 390 L${x + 10} 390 L${x + 10} 400 L${x} 400 Z`} fill="#3E2723" />
+                <path d={`M${x / 1.2} 380 Q${x / 1.2 + 20} 370 ${x / 1.2 + 40} 385 L${x / 1.2 + 40} 400 L${x / 1.2 + 30} 400 L${x / 1.2 + 30} 390 L${x / 1.2 + 10} 390 L${x / 1.2 + 10} 400 L${x / 1.2} 400 Z`} fill="#3E2723" />
                 {/* Head */}
-                <circle cx={x} cy={385} r="8" fill="#3E2723" />
-                <circle cx={x - 2} cy={380} r="2" fill="#3E2723" /> {/* Ear */}
+                <circle cx={x / 1.2} cy={385} r="8" fill="#3E2723" />
+                <circle cx={x / 1.2 - 2} cy={380} r="2" fill="#3E2723" />
             </motion.g>
         );
     };

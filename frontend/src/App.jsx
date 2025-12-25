@@ -53,8 +53,13 @@ function App() {
             <EcoChatAssistant resources={result.resources} carbonRating={result.green_rating} />
           </div>
 
-          <div style={{ position: 'sticky', top: '2rem' }}>
+          <div style={{ position: 'sticky', top: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             <ImpactVisualizer score={result.green_rating} />
+            {/* Historical Summary Box (Optional addition to fill space) */}
+            <div className="glass-panel" style={{ padding: '1.5rem', flex: 1, minHeight: '150px' }}>
+              <h3 style={{ margin: '0 0 1rem 0', fontSize: '1rem', color: 'var(--text-secondary)' }}>SUSTAINABILITY TREND</h3>
+              <p style={{ fontSize: '0.9rem', opacity: 0.8 }}>Every optimization counts. Reducing data transfer by 10% on this page could save enough CO2 to charge a smartphone 500 times.</p>
+            </div>
           </div>
 
         </div>
