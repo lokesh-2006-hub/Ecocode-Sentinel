@@ -14,16 +14,16 @@
 
 ## 🚀 Key Features
 
-### 🔍 Deep Carbon Analysis
-Scans any URL and calculates precise CO₂ emissions based on data transfer, server intensity, and resource types.
+### 🔍 Dual Carbon Analysis
+Scans any URL and calculates precise CO₂ emissions by splitting the impact between **Frontend Data Transfer** and **Backend Server Compute**.
 
 ### 🎭 Emotional Impact Visualizer
 A living, breathing SVG environment that changes in real-time based on your score. Watch forests thrive or rivers dry up based on your code's efficiency.
 
 ### 🤖 EcoChat AI Assistant
-Powered by **Google Gemini 1.5 Flash**, the built-in assistant provides contextual, technical advice on how to optimize specific resources found on your site.
+Powered by **Google Gemini 2.5 Flash Lite**, our built-in assistant provides technical advice on resource optimization and carbon reduction strategies.
 
-### 📈 Historical Tracking & Trends
+### 📉 Historical Tracking & Trends
 A built-in database tracks every scan, allowing you to visualize your optimization progress over time with interactive charts.
 
 ### 🏢 Green Hosting Checker
@@ -36,7 +36,7 @@ Integrated with the **Green Web Foundation API** to verify if your website is ho
 - **Frontend**: React, Vite, Framer Motion, Recharts, Axios.
 - **Backend**: Python, FastAPI, Beautiful Soup 4, Httpx.
 - **Database**: SQLite (local persistence for scan history).
-- **AI**: Google Gemini API.
+- **AI Engine**: Google Gemini 2.5 Flash Lite.
 
 ---
 
@@ -44,7 +44,7 @@ Integrated with the **Green Web Foundation API** to verify if your website is ho
 
 ### Prerequisites
 - Python 3.9+
-- Node.js 16+
+- Node.js 18+
 - Google Gemini API Key
 
 ### Installation
@@ -71,6 +71,7 @@ Integrated with the **Green Web Foundation API** to verify if your website is ho
    *Terminal 1 (Backend):*
    ```bash
    $env:GEMINI_API_KEY="YOUR_KEY_HERE"
+   $env:PAGESPEED_API_KEY="YOUR_KEY_HERE" (Optional)
    python -m uvicorn main:app --reload
    ```
 
@@ -83,10 +84,17 @@ Integrated with the **Green Web Foundation API** to verify if your website is ho
 
 ## 📐 Calculation Methodology
 
-We use the **Sustainable Web Design (SWD)** model:
-- **Energy**: 0.81 kWh/GB (including datacenter, network, and device).
-- **Emissions**: 442g CO₂e per kWh (global average).
-- **Efficiency**: Optimized assets = Reduced data transfer = Lower Carbon.
+We use a comprehensive two-part model to estimate digital carbon footprints:
+
+### 1. Frontend (Data Weight)
+Based on the **OneByte** model:
+- **Energy**: 0.81 kWh per GB of data transferred.
+- **Emissions**: 442g CO₂e per kWh (Global average intensity).
+
+### 2. Backend (Server Compute)
+A time-based heuristic using **Time-to-First-Byte (TTFB)**:
+- **Standard Host**: 0.020g CO₂ per second of processing.
+- **Green Host**: 0.005g CO₂ per second (75% reduction bonus).
 
 ---
 
