@@ -10,7 +10,7 @@ const HeroInput = ({ onScan, loading }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ maxWidth: '600px', margin: '0 auto', position: 'relative' }}>
+        <form onSubmit={handleSubmit} style={{ maxWidth: '800px', margin: '0 auto', position: 'relative' }}>
             <div
                 className="glass-panel"
                 style={{
