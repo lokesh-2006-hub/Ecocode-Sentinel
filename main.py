@@ -387,11 +387,18 @@ async def chat_with_ai(request: ChatRequest):
     # Build Gemini history
     contents = []
     
-    for i, msg in enumerate(request.messages):
+    # Filter and format messages (Gemini requires starting with a 'user' message)
+    # and strictly alternating user/model roles.
+    history_messages = request.messages
+    if history_messages and history_messages[0].role == 'model':
+        history_messages = history_messages[1:] # Skip the initial Greeting from the API call
+
+    for i, msg in enumerate(history_messages):
         role = "user" if msg.role == "user" else "model"
         text = msg.content
-        if i == len(request.messages) - 1 and role == "user":
-             # Inject context into the latest message for relevance
+        
+        # Inject system context into the very first user message for foundational knowledge
+        if i == 0 and role == "user":
              text = f"{system_context}\n\nUser Question: {text}"
         
         contents.append({
