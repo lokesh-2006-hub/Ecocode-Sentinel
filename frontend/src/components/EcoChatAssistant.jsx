@@ -63,9 +63,9 @@ const EcoChatAssistant = ({ resources, carbonRating }) => {
                             padding: '12px',
                             borderRadius: '12px',
                             border: msg.role === 'user' ? '1px solid rgba(0,255,157,0.3)' : '1px solid var(--glass-border)',
-                            overflowWrap: 'break-word',
+                            wordWrap: 'break-word',
                             wordBreak: 'break-word',
-                            overflow: 'hidden'
+                            whiteSpace: 'pre-wrap'
                         }}
                     >
                         <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.2rem', fontSize: '0.8rem', opacity: 0.7 }}>
