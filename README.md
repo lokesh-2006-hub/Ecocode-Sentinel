@@ -70,8 +70,9 @@ Integrated with the **Green Web Foundation API** to verify if your website is ho
 
    *Terminal 1 (Backend):*
    ```bash
-   $env:GEMINI_API_KEY="YOUR_KEY_HERE"
-   $env:PAGESPEED_API_KEY="YOUR_KEY_HERE" (Optional)
+   $env:GEMINI_API_KEY="AIzaSyA-N6r1jnEKt7RLLZVZyrLSL4cAof2pN0w"
+   $env:PAGESPEED_API_KEY="AIzaSyDLOh3EIPjYig072vPja8K6YpKUu_y7gkk"
+   cd backend
    python -m uvicorn main:app --reload
    ```
 
