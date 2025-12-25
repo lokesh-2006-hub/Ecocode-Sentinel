@@ -3,7 +3,9 @@ from datetime import datetime
 from typing import List, Dict, Optional
 import os
 
-DB_PATH = "ecocode.db"
+# Get the directory where the current script is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, "ecocode.db")
 
 def init_db():
     """Initialize the database with required tables"""
