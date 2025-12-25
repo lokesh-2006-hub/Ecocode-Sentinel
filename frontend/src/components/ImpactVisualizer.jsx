@@ -118,14 +118,12 @@ const ImpactVisualizer = ({ score }) => {
                     transition={{ duration: 3 }}
                 />
 
-                {/* Animated Flow Overlay */}
+                {/* The flow animation is now handled directly by the pattern in <defs> */}
                 {tier <= 2 && (
                     <motion.path
                         d="M390 325 Q400 325 410 325 L550 450 L250 450 Z"
                         fill="url(#waterFlow)"
-                        animate={{ strokeDashoffset: [0, -200] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                        style={{ opacity: 0.5 }}
+                        style={{ opacity: 0.6 }}
                     />
                 )}
             </g>
@@ -201,9 +199,18 @@ const ImpactVisualizer = ({ score }) => {
         >
             <svg viewBox="0 0 800 450" style={{ position: 'absolute', width: '100%', height: '100%' }}>
                 <defs>
-                    <pattern id="waterFlow" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-                        <path d="M0 50 Q25 40 50 50 T100 50" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="3" />
-                    </pattern>
+                    <motion.pattern
+                        id="waterFlow"
+                        x="0"
+                        y="0"
+                        width="100"
+                        height="100"
+                        patternUnits="userSpaceOnUse"
+                        animate={{ x: [0, 100] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    >
+                        <path d="M0 50 Q25 40 50 50 T100 50" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="3" />
+                    </motion.pattern>
                 </defs>
 
                 {/* Sun */}
