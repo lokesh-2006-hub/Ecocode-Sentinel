@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# Database
+*.db
+*.sqlite3
+
+# Node
+node_modules/
+dist/
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Backend temporary files
+reproduce_issue.py
+test_hosting.py
+test_hosting_keys.py
+test_calculate_error.py
+test_url.py
+test_pagespeed.py
+test_new_gemini_key.py
+debug_gemini.py
+history_endpoints.py
