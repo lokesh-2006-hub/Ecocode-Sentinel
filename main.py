@@ -31,10 +31,10 @@ class ResourceInfo(BaseModel):
 
 class PerformanceMetrics(BaseModel):
     performance_score: float  # 0-100
-    fcp: str = None  # First Contentful Paint
-    lcp: str = None  # Largest Contentful Paint
-    cls: float = None  # Cumulative Layout Shift
-    tbt: str = None  # Total Blocking Time
+    fcp: Optional[str] = None
+    lcp: Optional[str] = None
+    cls: Optional[float] = None
+    tbt: Optional[str] = None
 
 class HostingInfo(BaseModel):
     is_green: bool
@@ -47,8 +47,8 @@ class CarbonResult(BaseModel):
     green_rating: str
     details: dict
     resources: List[ResourceInfo]
-    performance: PerformanceMetrics = None  # Optional performance data
-    hosting: Optional[HostingInfo] = None  # New hosting info
+    performance: Optional[PerformanceMetrics] = None
+    hosting: Optional[HostingInfo] = None
 
 
 async def get_resource_size(client: httpx.AsyncClient, url: str) -> int:
@@ -136,6 +136,9 @@ async def check_hosting(url: str) -> HostingInfo:
         if domain.startswith('www.'):
             domain = domain[4:]
             
+        if domain == "localhost" or domain == "127.0.0.1":
+            return HostingInfo(is_green=False, provider="Local Machine", message="Running locally; hosting sustainability not applicable.")
+
         api_url = f"https://api.thegreenwebfoundation.org/greencheck/{domain}"
         
         async with httpx.AsyncClient() as client:
