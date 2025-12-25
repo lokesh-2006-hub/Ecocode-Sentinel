@@ -7,6 +7,7 @@ import EcoChatAssistant from './components/EcoChatAssistant';
 import HistoryPanel from './components/HistoryPanel';
 import TrendsChart from './components/TrendsChart';
 import ResourceAnalysis from './components/ResourceAnalysis';
+import Footer from './components/Footer';
 import axios from 'axios';
 import logo from './assets/logo.png';
 
@@ -70,6 +71,7 @@ function App() {
           <ResourceAnalysis resources={result.resources} />
         </div>
       )}
+      <Footer />
     </div>
   );
 }
