@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { API_URL } from '../config';
 
 const HistoryPanel = ({ url }) => {
     const [trends, setTrends] = useState(null);
@@ -11,7 +12,7 @@ const HistoryPanel = ({ url }) => {
 
         const fetchTrends = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/trends/${encodeURIComponent(url)}`);
+                const response = await axios.get(`${API_URL}/trends/${encodeURIComponent(url)}`);
                 setTrends(response.data);
             } catch (err) {
                 console.error('Error fetching trends:', err);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { motion } from 'framer-motion';
+import { API_URL } from '../config';
 
 const TrendsChart = ({ url }) => {
     const [data, setData] = useState([]);
@@ -12,7 +13,7 @@ const TrendsChart = ({ url }) => {
 
         const fetchTrends = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/trends/${encodeURIComponent(url)}`);
+                const response = await axios.get(`${API_URL}/trends/${encodeURIComponent(url)}`);
                 if (response.data.has_data && response.data.data_points) {
                     // Format data for the chart
                     const chartData = response.data.data_points.map(point => ({

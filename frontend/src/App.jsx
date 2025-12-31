@@ -11,6 +11,8 @@ import Footer from './components/Footer';
 import axios from 'axios';
 import logo from './assets/logo.png';
 
+import { API_URL } from './config';
+
 function App() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
@@ -21,7 +23,7 @@ function App() {
     setError('');
     setResult(null);
     try {
-      const response = await axios.post('http://127.0.0.1:8000/calculate', { url });
+      const response = await axios.post(`${API_URL}/calculate`, { url });
       setResult({ ...response.data, url }); // Store the URL with the result
     } catch (err) {
       console.error(err);

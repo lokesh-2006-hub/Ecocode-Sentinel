@@ -4,6 +4,8 @@ import ReactMarkdown from 'react-markdown';
 import { Send, Bot, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+import { API_URL } from '../config';
+
 const EcoChatAssistant = ({ resources, carbonRating }) => {
     const [messages, setMessages] = useState([
         { role: 'model', content: `Greetings! I've analyzed your site. You have a Carbon Rating of **${carbonRating}**. Ask me how to improve it!` }
@@ -32,7 +34,7 @@ const EcoChatAssistant = ({ resources, carbonRating }) => {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/chat', {
+            const response = await axios.post(`${API_URL}/chat`, {
                 messages: newMessages,
                 resources: resources
             });
